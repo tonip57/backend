@@ -1,5 +1,4 @@
 import http from "http"
-import {} from 'dotenv/config'
 import pkg from 'pg'
 const { Pool } = pkg
 
