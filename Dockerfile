@@ -4,7 +4,7 @@ WORKDIR /app
 
 # add app
 COPY . ./
-
+RUN npm install
 # start app
 CMD ["node", "backend.js"]
 
