@@ -28,7 +28,7 @@ const initPool = new Pool({
     port: 5432,
 })
   
-initPool.query(`CREATE TABLE IF NOT EXISTS "todos" ("todo" VARCHAR(140), "id" SERIAL UNIQUE, "done" BOOLEAN);`, (err, result) => {
+initPool.query(`CREATE TABLE IF NOT EXISTS "todos" ("todo" VARCHAR(140), "id" SERIAL UNIQUE, "done" BOOLEAN); INSERT INTO todos(todo, done)VALUES('Buy milk', 'false');`, (err, result) => {
     initPool.end()
 })
 
