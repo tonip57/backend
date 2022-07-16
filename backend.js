@@ -1,5 +1,5 @@
 import http from "http"
-import pkg from 'pg'
+import pkg from "pg"
 const { Pool } = pkg
 
 const host = '0.0.0.0'
