@@ -27,3 +27,4 @@ jobs:
       - name: Delete
         run: |-
           kubectl delete all --all -n ${{ github.event.ref }}
+
