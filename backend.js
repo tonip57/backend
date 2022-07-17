@@ -83,11 +83,18 @@ const requestListener = function (req, res) {
                 port: 5432,
             })
             console.log(String(req.url))
-            initPool.query(`CREATE TABLE IF NOT EXISTS "todos" ("todo" VARCHAR(140), "id" SERIAL UNIQUE, "done" BOOLEAN); INSERT INTO todos(todo, done)VALUES('Buy milk', 'false');`, (err, result) => {
-                initPool.end()
-            })
-            res.writeHead(200)
-            res.end()
+
+            try {
+                initPool.query(`CREATE TABLE IF NOT EXISTS "todos" ("todo" VARCHAR(140), "id" SERIAL UNIQUE, "done" BOOLEAN);`, (err, result) => {
+                    initPool.end()
+                })
+                res.writeHead(200)
+                res.end()
+            } catch (e) {
+                console.log(e)
+                res.writeHead(500)
+                res.end()
+            }
         }
     
         if (req.url.includes('/todos')) {
