@@ -19,18 +19,6 @@ const initPool = new Pool({
 })
 */
 
-const initPool = new Pool({
-    host: "postgres-svc",
-    user: POSTGRES_USER,
-    database: POSTGRES_DB,
-    password: POSTGRES_PASSWORD,
-    port: 5432,
-})
-  
-initPool.query(`CREATE TABLE IF NOT EXISTS "todos" ("todo" VARCHAR(140), "id" SERIAL UNIQUE, "done" BOOLEAN); INSERT INTO todos(todo, done)VALUES('Buy milk', 'false');`, (err, result) => {
-    initPool.end()
-})
-
 const requestListener = function (req, res) {
     
     /*
@@ -87,7 +75,17 @@ const requestListener = function (req, res) {
     } else if (req.method === 'GET' && !req.url.includes('favicon')) {
         console.log("GET")
         if (req.url.includes('/healthz')) {
+            const initPool = new Pool({
+                host: "postgres-svc",
+                user: POSTGRES_USER,
+                database: POSTGRES_DB,
+                password: POSTGRES_PASSWORD,
+                port: 5432,
+            })
             console.log(String(req.url))
+            initPool.query(`CREATE TABLE IF NOT EXISTS "todos" ("todo" VARCHAR(140), "id" SERIAL UNIQUE, "done" BOOLEAN); INSERT INTO todos(todo, done)VALUES('Buy milk', 'false');`, (err, result) => {
+                initPool.end()
+            })
             res.writeHead(200)
             res.end()
         }
